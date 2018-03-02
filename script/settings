@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+#
+# Global settings and values
+
+set -e
+set -o errexit
+set -o errtrace
+
+cd $(dirname $0)/..
+
+####### Environment Variables
+# Options: ioq1, iop1, io, qamdi, mdi
+ENVIRONMENT=ioq1
+
+######## Deployment Variables
+
+# Specify runtime environment variables here when passing flags to the Go executable via run.sh
+# These must be referenced in the $DOCKER_OPTS string when deploying directly to static host
+# via script/server start, or in "parameters" array of the marathon.template.json file, in the
+# form: {"key": "env", "value": "ENV_VAR1=%%ENV_VAR1%%"}. %%ENV_VAR1%% must be mapped to its
+# corresponding environment value (set here) in the marathon() function of script/deploy
+# ENV_VAR1="test1"
+# ENV_VAR2="test2"
+
+# PR
+#DOCKER_REPO=docker-registry-v2.ems.homedepot.com
+# QA
+DOCKER_REPO=ln39bb.homedepot.com:5000
+#DOCKER_REPO=cpliqad5.homedepot.com:5000
+
+DOCKER_OPTS=""
+#		Specify run-time options here when starting directly to a static host via script/server start
+#       Possible Docker Options:
+#       1. -p 80:80 for port settings
+#       2. -cap_add for cap_add settings
+#       3. --env "ENV_VAR1=$ENV_VAR1" for environment settings
+
+
+######## Application Variables
+### Do not name your IMAGE_NAME starting with mesos- or Mesos will assume it's an orphan and kill it. ###
+APP_NAME=dcos-jenkins-service
+IMAGE_NAME=$APP_NAME   # <yourimage>
+IMAGE_TAG=0.1      # <imagetag>
+RUN_TAG=$IMAGE_TAG        # <blue/green>
+
+### Image Builds
+LOCAL_IMAGE_NAME=${IMAGE_NAME}:${IMAGE_TAG}
+BASE_IMAGE_NAME=${DOCKER_REPO}/${IMAGE_NAME}:${IMAGE_TAG}
+RUN_IMAGE_NAME=${DOCKER_REPO}/${IMAGE_NAME}:${RUN_TAG}
+

@@ -92,6 +92,7 @@ Jenkins plugins:
   * saferestart v0.3
   * saml v1.0.4
   * scm-api v2.2.6
+  * slack:2.3
   * ssh-agent v1.15
   * ssh-slaves v1.23
   * subversion v2.10.1

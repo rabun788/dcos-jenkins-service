@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# script/deploy: deploys artifacts
+
+set -e
+set -o errexit
+set -o errtrace
+
+cd $(dirname $0)/..
+
+source script/settings
+source script/common
+
+script/cibuild
+
+echo "Pushing Docker image to registry: ${LOCAL_IMAGE_NAME} -> ${RUN_IMAGE_NAME}"
+docker tag  ${LOCAL_IMAGE_NAME} ${RUN_IMAGE_NAME}
+docker push ${RUN_IMAGE_NAME}
+
+#echo "Pushing Docker image to registry: ${LOCAL_IMAGE_NAME_QA} -> ${RUN_IMAGE_NAME_QA}"
+#docker tag  ${LOCAL_IMAGE_NAME} ${RUN_IMAGE_NAME_QA}
+#docker push ${RUN_IMAGE_NAME_QA}
+
+#docker tag http:latest ln39bb.homedepot.com:5000/http:latest
+#docker push ln39bb.homedepot.com:5000/http:latest

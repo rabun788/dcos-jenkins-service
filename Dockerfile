@@ -140,6 +140,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   saferestart:0.3                \
   saml:1.0.4                     \
   scm-api:2.2.6                  \
+  slack:2.3                      \
   ssh-agent:1.15                 \
   ssh-slaves:1.23                \
   subversion:2.10.1              \

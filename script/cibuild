@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# script/cibuid: automated build script
+
+set -e
+set -o errexit
+set -o errtrace
+
+cd $(dirname $0)/..
+
+#START_TIME=`date +%s` ##in hh:mm:ss formant to convert in seconds from epoch time
+
+#source script/bootstrap
+source script/settings
+source script/common
+
+#taskStart "Build"
+
+#script/clean all
+
+##TODO: build something
+docker build -t ${LOCAL_IMAGE_NAME} .
+
+#taskEnd
+
+#scriptSuccess
+
+#script/test

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# script/bootstrap: installs/starts dependencies and imports settings
+
+set -e
+set -o errexit
+set -o errtrace
+
+cd $(dirname $0)/..
+
+source script/settings
+source script/common
